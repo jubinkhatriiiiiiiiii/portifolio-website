@@ -36,10 +36,10 @@ const config = {
   },
   social: {
     twitter: "https://x.com/nothotchaddi",
-    linkedin: "https://www.linkedin.com/in/naresh-khatri/",
-    instagram: "https://www.instagram.com/hotchaddi",
-    facebook: "https://www.facebook.com/HotChaddi/",
-    github: "https://github.com/Naresh-Khatri",
+    linkedin: "https://www.linkedin.com/in/jubin-khatri-8434133bb",
+    instagram: "https://www.instagram.com/jubinkhatrii",
+    facebook: "https://www.instagram.com/jubinkhatrii/",
+    github: "https://github.com/jubinkhatriiiiiiiiii",
   },
 };
 export { config };

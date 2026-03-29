@@ -65,23 +65,51 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
 
   // SETUP SOCKET.IO
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_WS_URL) return
+    if (!process.env.NEXT_PUBLIC_WS_URL) {
+      console.warn('NEXT_PUBLIC_WS_URL is not set. Real-time features will not work.');
+      return;
+    }
+    
+    console.log('Connecting to Socket.IO server:', process.env.NEXT_PUBLIC_WS_URL);
+    
     const socket = io(process.env.NEXT_PUBLIC_WS_URL!, {
       auth: {
         sessionId: localStorage.getItem(SESSION_ID_KEY), // send on reconnect to restore session
       },
     });
+    
     setSocket(socket);
-    socket.on("connect", () => { });
+    
+    socket.on("connect", () => {
+      console.log('Socket.IO connected:', socket.id);
+    });
+    
+    socket.on("disconnect", () => {
+      console.log('Socket.IO disconnected');
+    });
+    
+    socket.on("connect_error", (error) => {
+      console.error('Socket.IO connection error:', error);
+    });
+    
     socket.on("msgs-receive-init", (msgs) => {
+      console.log('Received initial messages:', msgs.length);
       setMsgs(msgs);
     });
+    
     socket.on("session", ({ sessionId }) => {
+      console.log('Session ID received:', sessionId);
       localStorage.setItem(SESSION_ID_KEY, (sessionId));
     });
 
     socket.on("msg-receive", (msgs) => {
+      console.log('New message received:', msgs);
       setMsgs((p) => [...p, msgs]);
+    });
+    
+    socket.on("users-updated", (data: User[]) => {
+      console.log('Users updated:', data.length, 'users');
+      setUsers(data);
     });
 
     socket.on("warning", (data: { message: string }) => {
@@ -97,10 +125,11 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
       console.log(data)
       setMsgs((prev) => prev.filter((m) => Number(m.id) !== data.id));
     });
+    
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [toast]);
   const currentUser = users.find(u => u.socketId === socket?.id);
 
   return (

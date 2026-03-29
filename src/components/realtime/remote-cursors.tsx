@@ -12,7 +12,7 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 // TODO: add clicking animation
 // TODO: listen to socket disconnect
 const RemoteCursors = () => {
-  const { socket, users: _users, setUsers } = useContext(SocketContext);
+  const { socket, users, setUsers } = useContext(SocketContext);
   const isMobile = useMediaQuery("(max-width: 768px)");
   const { x, y } = useMouse({ allowPage: true });
   useEffect(() => {
@@ -38,7 +38,7 @@ const RemoteCursors = () => {
     return () => {
       socket.off("cursor-changed");
     };
-  }, [socket, isMobile]);
+  }, [socket, isMobile, setUsers]);
   const handleMouseMove = useThrottle((x, y) => {
     socket?.emit("cursor-change", {
       pos: { x, y },
@@ -49,7 +49,7 @@ const RemoteCursors = () => {
     if (isMobile) return;
     handleMouseMove(x, y);
   }, [x, y, isMobile]);
-  const users = Array.from(_users.values());
+  
   return (
     <div
       //  className="h-0 z-10 relative "

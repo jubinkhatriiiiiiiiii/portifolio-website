@@ -12,6 +12,7 @@ import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { Section, getKeyboardState } from "./animated-background-config";
 import { useSounds } from "./realtime/hooks/use-sounds";
+import { usePerformance } from "@/hooks/use-performance";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,6 +20,7 @@ const AnimatedBackground = () => {
   const { isLoading, bypassLoading } = usePreloader();
   const { theme } = useTheme();
   const isMobile = useMediaQuery("(max-width: 767px)");
+  const performanceLevel = usePerformance();
   const splineContainer = useRef<HTMLDivElement>(null);
   const [splineApp, setSplineApp] = useState<Application>();
   const selectedSkillRef = useRef<Skill | null>(null);
@@ -34,6 +36,9 @@ const AnimatedBackground = () => {
 
   const [keyboardRevealed, setKeyboardRevealed] = useState(false);
   const router = useRouter();
+
+  // Disable on mobile for performance
+  const shouldDisable = isMobile || performanceLevel.shouldReduceAnimations;
 
   // --- Event Handlers ---
 
@@ -278,17 +283,18 @@ const AnimatedBackground = () => {
 
   // Initialize GSAP and Spline interactions
   useEffect(() => {
-    if (!splineApp) return;
+    if (!splineApp || shouldDisable) return;
     handleSplineInteractions();
     setupScrollAnimations();
     bongoAnimationRef.current = getBongoAnimation();
     keycapAnimationsRef.current = getKeycapsAnimation();
     return () => {
-      bongoAnimationRef.current?.stop()
-      keycapAnimationsRef.current?.stop()
-    }
-
-  }, [splineApp, isMobile]);
+      bongoAnimationRef.current?.stop();
+      keycapAnimationsRef.current?.stop();
+      // Cleanup all ScrollTriggers
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, [splineApp, isMobile, shouldDisable]);
 
   // Handle keyboard text visibility based on theme and section
   useEffect(() => {
@@ -421,14 +427,20 @@ const AnimatedBackground = () => {
     const hash = activeSection === "hero" ? "#" : `#${activeSection}`;
     router.push("/" + hash, { scroll: false });
 
-    if (!splineApp || isLoading || keyboardRevealed) return;
+    if (!splineApp || isLoading || keyboardRevealed || shouldDisable) return;
     updateKeyboardTransform();
-  }, [splineApp, isLoading, activeSection]);
+  }, [splineApp, isLoading, activeSection, shouldDisable]);
+
+  // Don't render on mobile or low-end devices
+  if (shouldDisable) {
+    return null;
+  }
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Spline
         className="w-full h-full fixed"
+        style={{ willChange: "transform" }}
         ref={splineContainer}
         onLoad={(app: Application) => {
           setSplineApp(app);

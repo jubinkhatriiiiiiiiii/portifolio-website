@@ -59,6 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={[inter.variable, archivoBlack.variable, "font-display"].join(" ")} suppressHydrationWarning>
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
         <Script
           defer
           src={process.env.UMAMI_DOMAIN}
@@ -66,7 +67,7 @@ export default function RootLayout({
         ></Script>
         {/* <Analytics /> */}
       </head>
-      <body>
+      <body className="overflow-x-hidden">
         <Providers>
           <Header />
           {children}

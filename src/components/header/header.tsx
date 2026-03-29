@@ -47,46 +47,48 @@ const Header = ({ loader }: HeaderProps) => {
         }}
       >
       </div> */}
-      <div className={cn(styles.bar, "flex items-center justify-between")}>
+      <div className={cn(styles.bar, "flex items-center justify-between px-2 sm:px-4")}>
         <Link href="/" className="flex items-center justify-center">
-          <Button variant={"link"} className="text-md">
+          <Button variant={"link"} className="text-sm sm:text-md p-2 min-h-[44px]">
             {config.author}
           </Button>
         </Link>
 
-        <FunnyThemeToggle className="w-6 h-6 mr-4 hidden md:flex" />
-        <OnlineUsers />
-        {config.githubUsername && config.githubRepo && (
-          <GitHubStarsButton
-            username={config.githubUsername}
-            repo={config.githubRepo}
-            className="mr-4"
-          />
-        )}
-        <Button
-          variant={"ghost"}
-          onClick={() => setIsActive(!isActive)}
-          className={cn(
-            styles.el,
-            "m-0 p-0 h-6 bg-transparent flex items-center justify-center"
+        <div className="flex items-center gap-1 sm:gap-2">
+          <FunnyThemeToggle className="w-6 h-6 mr-2 sm:mr-4 hidden md:flex" />
+          <OnlineUsers />
+          {config.githubUsername && config.githubRepo && (
+            <GitHubStarsButton
+              username={config.githubUsername}
+              repo={config.githubRepo}
+              className="mr-2 sm:mr-4 hidden sm:flex"
+            />
           )}
-        >
-          <div className="relative hidden md:flex items-center">
-            <motion.p
-              variants={opacity}
-              animate={!isActive ? "open" : "closed"}
-            >
-              Menu
-            </motion.p>
-            <motion.p variants={opacity} animate={isActive ? "open" : "closed"}>
-              Close
-            </motion.p>
-          </div>
-          <div
-            className={`${styles.burger} ${isActive ? styles.burgerActive : ""
-              }`}
-          ></div>
-        </Button>
+          <Button
+            variant={"ghost"}
+            onClick={() => setIsActive(!isActive)}
+            className={cn(
+              styles.el,
+              "m-0 p-2 min-h-[44px] min-w-[44px] bg-transparent flex items-center justify-center"
+            )}
+          >
+            <div className="relative hidden md:flex items-center">
+              <motion.p
+                variants={opacity}
+                animate={!isActive ? "open" : "closed"}
+              >
+                Menu
+              </motion.p>
+              <motion.p variants={opacity} animate={isActive ? "open" : "closed"}>
+                Close
+              </motion.p>
+            </div>
+            <div
+              className={`${styles.burger} ${isActive ? styles.burgerActive : ""
+                }`}
+            ></div>
+          </Button>
+        </div>
       </div>
       <motion.div
         variants={background}

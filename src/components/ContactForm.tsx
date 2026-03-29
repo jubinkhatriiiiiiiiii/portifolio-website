@@ -62,10 +62,10 @@ const ContactForm = () => {
     setLoading(false);
   };
   return (
-    <form className="min-w-7xl mx-auto sm:mt-4" onSubmit={handleSubmit}>
+    <form className="w-full mx-auto sm:mt-4" onSubmit={handleSubmit}>
       <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
         <LabelInputContainer>
-          <Label htmlFor="fullname">Full name</Label>
+          <Label htmlFor="fullname" className="text-sm sm:text-base">Full name</Label>
           <Input
             id="fullname"
             placeholder="Your Name"
@@ -73,10 +73,11 @@ const ContactForm = () => {
             required
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
+            className="min-h-[44px] text-base"
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="email">Email Address</Label>
+          <Label htmlFor="email" className="text-sm sm:text-base">Email Address</Label>
           <Input
             id="email"
             placeholder="you@example.com"
@@ -84,35 +85,37 @@ const ContactForm = () => {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="min-h-[44px] text-base"
           />
         </LabelInputContainer>
       </div>
       <div className="grid w-full gap-1.5 mb-4">
-        <Label htmlFor="content">Your Message</Label>
+        <Label htmlFor="content" className="text-sm sm:text-base">Your Message</Label>
         <Textarea
           placeholder="Tell me about about your project,"
           id="content"
           required
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          className="min-h-[120px] text-base"
         />
-        <p className="text-sm text-muted-foreground">
+        <p className="text-xs sm:text-sm text-muted-foreground">
           I&apos;ll never share your data with anyone else. Pinky promise!
         </p>
       </div>
       <Button
         disabled={loading}
-        className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+        className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md min-h-[48px] font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
         type="submit"
       >
         {loading ? (
           <div className="flex items-center justify-center">
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            <p>Please wait</p>
+            <p className="text-sm sm:text-base">Please wait</p>
           </div>
         ) : (
           <div className="flex items-center justify-center">
-            Send Message <ChevronRight className="w-4 h-4 ml-4" />
+            <span className="text-sm sm:text-base">Send Message</span> <ChevronRight className="w-4 h-4 ml-2 sm:ml-4" />
           </div>
         )}
         <BottomGradient />

@@ -113,7 +113,7 @@ const OnlineUsers = () => {
           <Button
             variant="ghost"
             className={cn(
-              "mr-2 sm:mr-4 h-11 w-11 sm:w-12 shadow-lg transition-all duration-300 z-50 p-0",
+              "mr-4 h-11 w-12 shadow-lg transition-all duration-300 z-50 p-0",
               "bg-background/20 hover:bg-background/80 backdrop-blur-sm border-2 border-white/30 rounded-lg",
               !isOpen && unreads > 0 && "animate-pulse border-green-500/50"
             )}
@@ -132,11 +132,11 @@ const OnlineUsers = () => {
                   }}
                   className={cn("absolute -inset-1 rounded-full", unreads > 0 ? "bg-green-500/40" : "bg-transparent")}
                 />
-                <Users2 className="w-5 h-5 sm:w-6 sm:h-6" />
+                <Users2 className="w-6 h-6" />
               </div>
 
               <span className={cn(
-                "absolute -top-1 -right-1 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full text-[9px] sm:text-[10px] font-bold transition-colors",
+                "absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold transition-colors",
                 unreads > 0 ? "bg-green-500 text-white" : "bg-red-500 text-white"
               )}>
                 {unreads > 0 ? unreads : users.length}
@@ -146,25 +146,25 @@ const OnlineUsers = () => {
         </PopoverTrigger>
         <PopoverContent
           className={cn(
-            "w-[calc(100vw-2rem)] max-w-[400px] sm:w-96 min-h-[400px] max-h-[80vh] p-0 border-none shadow-2xl overflow-hidden rounded-xl mr-2 sm:mr-4 mb-4 flex flex-col",
+            "w-80 min-h-[400px] sm:w-96 p-0 border-none shadow-2xl overflow-hidden rounded-xl mr-4 mb-4 flex flex-col",
             THEME.bg.primary,
             THEME.text.primary
           )}
           side="top"
         >
           {/* Header */}
-          <div className={cn("h-12 flex items-center justify-between px-3 sm:px-4 shadow-sm border-b shrink-0", THEME.bg.secondary, THEME.border.primary)}>
-            <div className={cn("flex items-center gap-2 font-semibold text-sm sm:text-base", THEME.text.header)}>
-              <Hash className={cn("w-4 h-4 sm:w-5 sm:h-5", THEME.text.secondary)} />
+          <div className={cn("h-12 flex items-center justify-between px-4 shadow-sm border-b shrink-0", THEME.bg.secondary, THEME.border.primary)}>
+            <div className={cn("flex items-center gap-2 font-semibold", THEME.text.header)}>
+              <Hash className={cn("w-5 h-5", THEME.text.secondary)} />
               <span>general</span>
             </div>
-            <div className="flex items-center gap-1 sm:gap-2">
+            <div className="flex items-center gap-2">
               {currentUser && (
                 <Button
                   variant="ghost"
                   size="sm"
                   className={cn(
-                    "h-8 w-8 sm:h-9 sm:w-9 p-0 gap-2 transition-colors rounded-full",
+                    "h-9 w-9 p-0 gap-2 transition-colors rounded-full",
                     THEME.bg.hover,
                     THEME.text.secondary,
                     "hover:text-[#060607] dark:hover:text-white"
@@ -172,14 +172,14 @@ const OnlineUsers = () => {
                   onClick={() => setIsEditingProfile(true)}
                   title="Edit Profile"
                 >
-                  <div className="relative w-7 h-7 sm:w-8 sm:h-8">
+                  <div className="relative w-8 h-8">
                     <img
                       src={getAvatarUrl(currentUser.avatar)}
                       className="w-full h-full rounded-full ring-1 ring-black/10 dark:ring-white/10"
                       style={{ backgroundColor: currentUser.color || '#60a5fa' }}
                     />
                     <div className="absolute -bottom-1 -right-1 bg-[#5865f2] rounded-full border-2 border-[var(--bg-primary)]">
-                      <Settings className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
+                      <Settings className="w-3 h-3 text-white" />
                     </div>
                   </div>
                 </Button>
@@ -191,7 +191,7 @@ const OnlineUsers = () => {
                 variant="outline"
                 size="sm"
                 className={cn(
-                  "transition-colors gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3",
+                  "transition-colors gap-2",
                   THEME.bg.hover,
                   `hover:${THEME.text.header.replace("text-", "text-")} `,
                   "hover:text-[#060607] dark:hover:text-white",
@@ -205,7 +205,7 @@ const OnlineUsers = () => {
                     {users.length}
                   </span>
                 </div>
-                <Users className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Users className="w-5 h-5" />
               </Button>
             </div>
           </div>

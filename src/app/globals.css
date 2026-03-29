@@ -98,30 +98,3 @@ body {
     pointer-events: auto;
   }
 }
-
-/* Extra small devices (320px - 400px) */
-@media (max-width: 400px) {
-  html {
-    font-size: 14px;
-  }
-  
-  body {
-    overflow-x: hidden;
-  }
-  
-  * {
-    max-width: 100%;
-  }
-}
-
-/* Ensure touch targets are at least 44x44px */
-@media (max-width: 768px) {
-  button,
-  a,
-  input,
-  select,
-  textarea {
-    min-height: 44px;
-    min-width: 44px;
-  }
-}

@@ -431,7 +431,7 @@ const AnimatedBackground = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Spline
-        className="w-full h-full fixed"
+        className="w-full h-full fixed overflow-hidden"
         ref={splineContainer}
         onLoad={(app: Application) => {
           setSplineApp(app);

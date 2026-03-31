@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   description: config.description.long,
   keywords: config.keywords,
   authors: [{ name: config.author }],
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+  },
   openGraph: {
     title: config.title,
     description: config.description.short,

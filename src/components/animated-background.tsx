@@ -253,7 +253,10 @@ const AnimatedBackground = () => {
 
     if (isMobile) {
       const mobileKeyCaps = allObjects.filter((obj) => obj.name === "keycap-mobile");
-      mobileKeyCaps.forEach((keycap) => { keycap.visible = true; });
+      mobileKeyCaps.forEach(async (keycap, idx) => {
+        await sleep(idx * 70);
+        keycap.visible = true;
+      });
     } else {
       const desktopKeyCaps = allObjects.filter((obj) => obj.name === "keycap-desktop");
       desktopKeyCaps.forEach(async (keycap, idx) => {

@@ -20,8 +20,8 @@ const HeroSection = () => {
   const { isLoading } = usePreloader();
 
   return (
-    <SectionWrapper id="hero" className={cn("relative w-full h-screen")}>
-      <div className="grid md:grid-cols-2">
+    <SectionWrapper id="hero" className={cn("relative w-full h-screen overflow-hidden")}>
+      <div className="grid md:grid-cols-2 px-4 md:px-0">
         <div
           className={cn(
             "h-[calc(100dvh-3rem)] md:h-[calc(100dvh-4rem)] z-[2]",
@@ -51,8 +51,8 @@ const HeroSection = () => {
                       <h1
                         className={cn(
                           "-ml-[6px] leading-none font-thin text-transparent text-slate-800 text-left",
-                          "font-thin text-7xl md:text-7xl lg:text-8xl xl:text-9xl",
-                          "cursor-default text-edge-outline font-display "
+                          "font-thin text-6xl sm:text-7xl md:text-7xl lg:text-8xl xl:text-9xl",
+                          "cursor-default text-edge-outline font-display max-w-full"
                         )}
                       >
                         {config.author.split(" ")[0]}

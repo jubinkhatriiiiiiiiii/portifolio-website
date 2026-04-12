@@ -24,8 +24,8 @@ const config = {
     "Framer Motion",
   ],
   author: "Jubin khatri",
-  email: "naresh.khatri2345@gmail.com",
-  site: "https://nareshkhatri.site",
+  email: "jubinkhatri8@gmail.com",
+  site: "https://jubinkhatri.com.np",
 
   // for github stars button
   githubUsername: "jubinkhatriiiiiiiiii",
